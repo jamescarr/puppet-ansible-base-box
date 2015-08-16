@@ -72,6 +72,7 @@
     }
   ],
   "post-processors": [
+    [
     {
       "type": "vagrant",
       "only": [
@@ -91,5 +92,5 @@
         "created_at": "{{timestamp}}"
       }
     }
-  ]
+  ]]
 }
