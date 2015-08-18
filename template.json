@@ -1,6 +1,6 @@
 {
   "variables": {
-    "version": "1.0.0"
+    "version": "1.0.4"
   },
   "builders": [
     {
@@ -60,37 +60,39 @@
     {
       "type": "shell",
       "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-      "script": "scripts/virtualbox-setup.sh"
-    },
-    {
-      "type": "shell",
-      "script": "scripts/install_puppet.sh"
-    },
-    {
-      "type": "shell",
-      "script": "scripts/install_ansible.sh"
+      "scripts": [
+        "scripts/update.sh",
+        "scripts/vagrant.sh",
+        "scripts/vboxguest.sh",
+        "scripts/install_puppet.sh",
+        "scripts/install_ansible.sh",
+        "scripts/sshd.sh",
+        "scripts/cleanup.sh"
+      ]
     }
   ],
   "post-processors": [
     [
-    {
-      "type": "vagrant",
-      "only": [
-        "virtualbox-iso"
-      ]
-    },
-    {
-      "type": "atlas",
-      "only": [
-        "virtualbox-iso"
-      ],
-      "artifact": "zapier/zapier-infra",
-      "artifact_type": "vagrant.box",
-      "metadata": {
-        "provider": "virtualbox",
-        "version": "{{ user `version` }}",
-        "created_at": "{{timestamp}}"
+      {
+        "type": "vagrant",
+        "compression_level": "9",
+        "only": [
+          "virtualbox-iso"
+        ]
+      },
+      {
+        "type": "atlas",
+        "only": [
+          "virtualbox-iso"
+        ],
+        "artifact": "zapier/zapier-infra",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "provider": "virtualbox",
+          "version": "{{ user `version` }}",
+          "created_at": "{{timestamp}}"
+        }
       }
-    }
-  ]]
+    ]
+  ]
 }
