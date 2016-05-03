@@ -1,7 +1,9 @@
 #!/bin/bash
+date > /etc/vagrant_box_build_time
+
 mkdir /home/vagrant/.ssh
-wget --no-check-certificate -O authorized_keys 'https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub'
-mv authorized_keys /home/vagrant/.ssh
+wget --no-check-certificate \
+    'https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub' \
+    -O /home/vagrant/.ssh/authorized_keys
 chown -R vagrant /home/vagrant/.ssh
 chmod -R go-rwsx /home/vagrant/.ssh
-chmod -wx /home/vagrant/.ssh/authorized_keys
