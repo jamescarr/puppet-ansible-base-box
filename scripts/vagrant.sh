@@ -7,3 +7,5 @@ wget --no-check-certificate \
     -O /home/vagrant/.ssh/authorized_keys
 chown -R vagrant /home/vagrant/.ssh
 chmod -R go-rwsx /home/vagrant/.ssh
+chmod -wx /home/vagrant/.ssh/authorized_keys
+
